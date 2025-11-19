@@ -1,2 +1,10 @@
-package com.pjasoft.recipeapp.domain.dtos.utils 
+package com.pjasoft.recipeapp.domain.dtos.utils
 
+import androidx.compose.ui.focus.FocusManager
+import platform.UIKit.UIApplication
+import platform.UIKit.endEditing
+
+actual fun hideKeyboard(focusManager: FocusManager) {
+    //UIKit
+    UIApplication.sharedApplication.keyWindow?.endEditing(true)
+}

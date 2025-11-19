@@ -1,4 +1,8 @@
 package com.pjasoft.recipeapp.domain.dtos
 
-class Prompt {
-}
+import kotlinx.serialization.Serializable
+
+@Serializable
+data class Prompt (
+    val ingredients : String
+)

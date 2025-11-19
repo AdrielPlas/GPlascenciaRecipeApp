@@ -1,5 +1,8 @@
 package com.pjasoft.recipeapp.domain.dtos
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class RecipeDTO(
     val category: String,
     val ingredients: List<String>,
@@ -7,5 +10,6 @@ data class RecipeDTO(
     val minutes: Int,
     val prompt: String,
     val stars: Int,
-    val title: String
+    val title: String,
+    val imageUrl : String
 )

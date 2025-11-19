@@ -1,4 +1,4 @@
-package com.pjasoft.recipeapp.domain.utils
+package com.pjasoft.recipeapp.domain.dtos.utils
 
 import androidx.compose.ui.focus.FocusManager
 
