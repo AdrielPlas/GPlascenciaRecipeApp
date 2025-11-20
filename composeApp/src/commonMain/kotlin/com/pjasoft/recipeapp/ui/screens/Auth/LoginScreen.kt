@@ -1,3 +1,8 @@
+package com.pjasoft.recipeapp.ui.screens.Auth
+
+import LoginScreenRoute
+import MainScreenRoute
+import RegisterScreenRoute
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -151,7 +156,7 @@ fun LoginScreen(navController: NavController){
         }
     }
 }
-
+/*
 @Preview
 @Composable
 fun LoginScreenPreview(){
@@ -160,4 +165,4 @@ fun LoginScreenPreview(){
             navController = rememberNavController()
         )
     }
-}
+}*/

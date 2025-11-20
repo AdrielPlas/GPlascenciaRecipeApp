@@ -1,8 +1,6 @@
 package com.pjasoft.recipeapp
 
-import LoginScreen
 import LoginScreenRoute
-import MainScreen
 import MainScreenGraph
 import MainScreenRoute
 import RecipeTheme
@@ -24,12 +22,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
+import com.pjasoft.recipeapp.ui.screens.Auth.LoginScreen
 import com.pjasoft.recipeapp.ui.screens.Auth.RegisterScreen
+import com.pjasoft.recipeapp.ui.screens.MainScreen
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
-
-import recipeapp512.composeapp.generated.resources.Res
-import recipeapp512.composeapp.generated.resources.compose_multiplatform
 
 // Patron Observable
 @Composable

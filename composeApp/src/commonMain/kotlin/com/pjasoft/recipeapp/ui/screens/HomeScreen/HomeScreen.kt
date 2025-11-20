@@ -133,7 +133,12 @@ fun HomeScreen(){
 
         item {
             Text(
-                text = "Tus recetas recientes"
+                text = "Tus recetas recientes",
+                modifier = Modifier.padding(vertical = 10.dp),
+                style = MaterialTheme
+                    .typography
+                    .headlineSmall
+                    .copy(fontWeight = FontWeight.Bold)
             )
             LazyRow(
                 modifier = Modifier.fillMaxWidth(),
@@ -168,7 +173,12 @@ fun HomeScreen(){
                 "Sin horno",
                 "Desayunos")
             Text(
-                text = "Ideas Rapidas"
+                text = "Ideas Rápidas",
+                modifier = Modifier.padding(vertical = 10.dp),
+                style = MaterialTheme
+                    .typography
+                    .headlineSmall
+                    .copy(fontWeight = FontWeight.Bold)
             )
             LazyRow(
                 horizontalArrangement = Arrangement.spacedBy(16.dp)
@@ -192,15 +202,25 @@ fun HomeScreen(){
             ) {
                 Column {
                     Text(
-                        text = "?No sabes que concinar hoy"
+                        text = "¿No sabes que concinar hoy?",
+                        style = MaterialTheme
+                            .typography
+                            .bodyLarge
+                            .copy(fontWeight = FontWeight.SemiBold)
+
                     )
                     Text(
-                        text = "Genera una receta aleatoria"
+                        text = "Genera una receta aleatoria",
+                        style = MaterialTheme
+                            .typography
+                            .bodyMedium
+                            .copy(fontWeight = FontWeight.Normal)
                     )
                 }
                 Icon(
                     imageVector = Icons.Default.AutoAwesome,
-                    contentDescription = null
+                    contentDescription = null,
+                    tint = colors.primary
                 )
             }
         }
@@ -208,7 +228,20 @@ fun HomeScreen(){
         //Todas las recetas
         items(viewModel.recipes) { recipe ->
             RecipeItem(recipe) {
-
+                scope.launch {
+                    val recipeDTO = RecipeDTO(
+                        category = recipe.category,
+                        ingredients = recipe.ingredients,
+                        instructions = recipe.instructions,
+                        minutes = recipe.minutes,
+                        prompt = "",
+                        stars = recipe.stars,
+                        title = recipe.title,
+                        imageUrl = recipe.imageUrl ?: ""
+                    )
+                    viewModel.showModalFromList(recipeDTO)
+                    sheetState.partialExpand()
+                }
             }
         }
     }

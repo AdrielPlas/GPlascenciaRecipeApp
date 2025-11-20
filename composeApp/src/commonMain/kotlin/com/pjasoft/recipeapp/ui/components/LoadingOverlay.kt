@@ -28,12 +28,13 @@ fun LoadingOverlay(colors: ColorScheme){
         Icon(
             imageVector = Icons.Default.Restaurant,
             contentDescription = null,
-            modifier = Modifier.size(70.dp)
+            modifier = Modifier.size(70.dp),
+            tint = colors.primary
         )
         Text(
             text = "Cocinando",
             style = MaterialTheme.typography.titleLarge,
-            color = colors.onSurface
+            color = colors.surface
         )
     }
 }

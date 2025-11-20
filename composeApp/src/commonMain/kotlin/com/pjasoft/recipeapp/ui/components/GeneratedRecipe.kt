@@ -53,7 +53,13 @@ fun GeneratedRecipe(recipe: RecipeDTO?){
                 .background(colors.primary.copy(0.1f))
         )
         Text(
-            text = recipe?.title ?: ""
+            text = recipe?.title ?: "",
+            modifier = Modifier.padding(vertical = 9.dp),
+            style = MaterialTheme
+                .typography
+                .headlineMedium
+                .copy(fontWeight = FontWeight.Bold)
+
         )
         Row(
             modifier = Modifier
@@ -81,7 +87,12 @@ fun GeneratedRecipe(recipe: RecipeDTO?){
             )
         }
         Text(
-            text = "Ingredientes"
+            text = "Ingredientes",
+            modifier = Modifier.padding(vertical = 9.dp),
+            style = MaterialTheme
+                .typography
+                .headlineSmall
+                .copy(fontWeight = FontWeight.SemiBold)
         )
         FlowRow(
             modifier = Modifier.fillMaxWidth(),
@@ -95,7 +106,12 @@ fun GeneratedRecipe(recipe: RecipeDTO?){
             }
         }
         Text(
-            text = "Preparacion"
+            text = "Preparación",
+            modifier = Modifier.padding(vertical = 9.dp),
+            style = MaterialTheme
+                .typography
+                .headlineSmall
+                .copy(fontWeight = FontWeight.SemiBold)
         )
         recipe?.instructions?.forEachIndexed { index, instruction ->
             Row(

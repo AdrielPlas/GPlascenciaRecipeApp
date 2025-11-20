@@ -1,6 +1,7 @@
 package com.pjasoft.recipeapp.ui.screens.HomeScreen.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -37,7 +38,10 @@ fun RecipeItem(recipe: Recipe, onClick : () -> Unit) {
             .clip(RoundedCornerShape(16.dp))
             .shadow(16.dp, RoundedCornerShape(16.dp))
             .background(colors.surface)
-            .padding(20.dp),
+            .padding(20.dp)
+            .clickable{
+                onClick()
+            },
         verticalAlignment = Alignment.CenterVertically
     ) {
         AsyncImage(
