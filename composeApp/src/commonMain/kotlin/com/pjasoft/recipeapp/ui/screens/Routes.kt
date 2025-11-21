@@ -8,7 +8,7 @@ object LoginScreenRoute
 object RegisterScreenRoute
 
 @Serializable
-object MainScreenGraph
+data class MainScreenGraph(val userId: Int)
 
 @Serializable
 object HomeScreenRoute

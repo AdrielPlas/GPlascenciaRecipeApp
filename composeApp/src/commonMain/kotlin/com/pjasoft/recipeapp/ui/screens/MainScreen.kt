@@ -2,20 +2,27 @@ package com.pjasoft.recipeapp.ui.screens
 
 import HomeScreenRoute
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.pjasoft.recipeapp.ui.screens.HomeScreen.HomeScreen
 
 @Composable
-fun MainScreen(){
+fun MainScreen(
+    userId: Int,
+    rootNavController: NavController
+){
     val navController = rememberNavController()
     NavHost(
         navController = navController,
         startDestination = HomeScreenRoute
     ){
         composable<HomeScreenRoute> {
-            HomeScreen()
+            HomeScreen(
+                userId = userId,
+                rootNavController = rootNavController
+            )
         }
     }
 }

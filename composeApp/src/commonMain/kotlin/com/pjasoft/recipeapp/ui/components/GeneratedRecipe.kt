@@ -15,8 +15,11 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Save
 import androidx.compose.material.icons.filled.Schedule
 import androidx.compose.material.icons.filled.Star
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -34,7 +37,10 @@ import com.pjasoft.recipeapp.domain.models.Recipe
 import com.pjasoft.recipeapp.ui.screens.HomeScreen.components.Tag
 
 @Composable
-fun GeneratedRecipe(recipe: RecipeDTO?){
+fun GeneratedRecipe(
+    recipe: RecipeDTO?,
+    onSaveClick: () -> Unit = {}
+){
     val colors = MaterialTheme.colorScheme
     Column(
         modifier = Modifier
@@ -130,6 +136,20 @@ fun GeneratedRecipe(recipe: RecipeDTO?){
                     color = colors.onSurface
                 )
             }
+        }
+        
+        Spacer(Modifier.height(16.dp))
+        
+        Button(
+            onClick = onSaveClick,
+            modifier = Modifier.fillMaxWidth(),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = colors.primary
+            )
+        ) {
+            Icon(Icons.Default.Save, contentDescription = null)
+            Spacer(Modifier.width(8.dp))
+            Text("Guardar Receta")
         }
     }
 }

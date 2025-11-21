@@ -23,7 +23,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun Header(){
+fun Header(onLogout: () -> Unit = {}){
     val colors = MaterialTheme.colorScheme
 
     Row(
@@ -41,7 +41,7 @@ fun Header(){
                 fontWeight = FontWeight.Light
             )
             Text(
-                text = "Juan Frausto",
+                text = "Adriel", // ViewModel.name
                 fontWeight = FontWeight.Bold
             )
         } // Fin del column
@@ -53,14 +53,14 @@ fun Header(){
             contentAlignment = Alignment.Center
         ) {
             Text(
-                text = "J"
+                text = "Adriel".take(1) //ViewModel.name
             )
         } // Fin del Box
         Spacer(
             modifier = Modifier.width(10.dp)
         )
         IconButton(
-            onClick = {  }
+            onClick = onLogout
         ){
             Icon(
                 imageVector = Icons.AutoMirrored.Filled.Logout,

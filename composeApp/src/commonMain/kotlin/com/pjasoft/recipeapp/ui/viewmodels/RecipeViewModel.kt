@@ -11,11 +11,12 @@ import com.pjasoft.recipeapp.domain.dtos.RecipeDTO
 import com.pjasoft.recipeapp.domain.models.Recipe
 import kotlinx.coroutines.launch
 
-class RecipeViewModel : ViewModel() {
-
-    val userId = 2
+class RecipeViewModel(
+    val userId: Int
+) : ViewModel() {
     val recipeService = KtorfitClient.createRecipeService()
     var recipes by mutableStateOf<List<Recipe>>(listOf())
+    var recentRecipes by mutableStateOf<List<Recipe>>(listOf())
     var generatedRecipe by mutableStateOf<RecipeDTO?>(null)
     var showSheet by mutableStateOf(false)
     var isLoading by mutableStateOf(false)
@@ -56,11 +57,40 @@ class RecipeViewModel : ViewModel() {
         viewModelScope.launch {
             try {
                 val result = recipeService.getRecipesByUserId(userId)
-                recipes = result.takeLast(5).reversed()
+                recipes = result.reversed()
+                recentRecipes = result.takeLast(5).reversed()
                 println(result.toString())
             }
             catch (e: Exception) {
                 println(e.toString())
+            }
+        }
+    }
+
+    fun saveRecipe(recipeDTO: RecipeDTO){
+        viewModelScope.launch {
+            try {
+                isLoading = true
+                val recipe = Recipe(
+                    id = 0,
+                    title = recipeDTO.title,
+                    category = recipeDTO.category,
+                    imageUrl = recipeDTO.imageUrl,
+                    ingredients = recipeDTO.ingredients,
+                    instructions = recipeDTO.instructions,
+                    minutes = recipeDTO.minutes,
+                    stars = recipeDTO.stars,
+                    userId = userId
+                )
+                recipeService.saveGeneratedRecipe(recipe)
+                getRecipes() // Recargar recetas
+                hideModal()
+            }
+            catch (e: Exception) {
+                println(e.toString())
+            }
+            finally {
+                isLoading = false
             }
         }
     }

@@ -1,7 +1,7 @@
 package com.pjasoft.recipeapp.ui.screens.Auth
 
 import LoginScreenRoute
-import MainScreenRoute
+import MainScreenGraph
 import RegisterScreenRoute
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -56,7 +56,8 @@ fun LoginScreen(navController: NavController){
 
     LaunchedEffect(isLogged){
         if(isLogged){
-            navController.navigate(MainScreenRoute){
+            val userId = viewModel.userId ?: return@LaunchedEffect
+            navController.navigate(MainScreenGraph(userId)){
                 popUpTo(LoginScreenRoute){ inclusive = true }
             }
         }

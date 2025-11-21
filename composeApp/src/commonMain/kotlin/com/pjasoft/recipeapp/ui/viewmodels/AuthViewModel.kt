@@ -9,6 +9,9 @@ import kotlinx.coroutines.launch
 
 class AuthViewModel : ViewModel() {
 
+    var userId: Int? = null
+        private set
+
     fun register(
         name:String,
         email:String,
@@ -25,6 +28,7 @@ class AuthViewModel : ViewModel() {
                 )
                 val result = service.register(register)
                 if(result.isLogged){
+                    userId = result.userId
                     // QUE EL USUARIO SE REGISTRO Y SE LOGUEO
                     println("Logueao")
                     onResult(true,result.message)
@@ -58,6 +62,7 @@ class AuthViewModel : ViewModel() {
                 )
                 val result = service.login(login)
                 if(result.isLogged){
+                    userId = result.userId
                     onResult(true,result.message)
                 }
                 else{

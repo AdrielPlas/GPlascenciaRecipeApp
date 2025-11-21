@@ -1,5 +1,6 @@
 package com.pjasoft.recipeapp.ui.screens.HomeScreen
 
+import LoginScreenRoute
 import RecipeTheme
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -42,6 +43,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import com.pjasoft.recipeapp.domain.dtos.Prompt
 import com.pjasoft.recipeapp.domain.dtos.RecipeDTO
 import com.pjasoft.recipeapp.domain.dtos.utils.hideKeyboard
@@ -58,7 +60,10 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(){
+fun HomeScreen(
+    userId: Int,
+    rootNavController: NavController
+){
     val colors = MaterialTheme.colorScheme
     val sheetState = rememberModalBottomSheetState(
         skipPartiallyExpanded = false
@@ -68,7 +73,7 @@ fun HomeScreen(){
         mutableStateOf("")
     }
     val focusManager = LocalFocusManager.current
-    val viewModel : RecipeViewModel = viewModel()
+    val viewModel: RecipeViewModel = viewModel { RecipeViewModel(userId) }
 
     LazyColumn(
         modifier = Modifier
@@ -79,7 +84,13 @@ fun HomeScreen(){
     ) {
         // Header
         item {
-            Header()
+            Header(
+                onLogout = {
+                    rootNavController.navigate(LoginScreenRoute) {
+                        popUpTo(0) { inclusive = true }
+                    }
+                }
+            )
         }
         // Fin del Header
         item {
@@ -144,7 +155,7 @@ fun HomeScreen(){
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(16.dp)
             ) {
-                items(viewModel.recipes) { recipe ->
+                items(viewModel.recentRecipes) { recipe ->
                     RecipeCard(recipe){
                         scope.launch {
                             val recipeDTO = RecipeDTO(
@@ -255,22 +266,17 @@ fun HomeScreen(){
         )
         {
             GeneratedRecipe(
-                recipe = viewModel.generatedRecipe
+                recipe = viewModel.generatedRecipe,
+                onSaveClick = {
+                    viewModel.generatedRecipe?.let { recipe ->
+                        viewModel.saveRecipe(recipe)
+                    }
+                }
             )
         }
     }
 
     if(viewModel.isLoading) {
         LoadingOverlay(colors)
-    }
-}
-
-@Preview(
-    showBackground = true
-)
-@Composable
-fun HomeScreenPreview(){
-    RecipeTheme {
-        HomeScreen()
     }
 }

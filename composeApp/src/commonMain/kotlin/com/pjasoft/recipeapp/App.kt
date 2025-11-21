@@ -22,6 +22,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
 import com.pjasoft.recipeapp.ui.screens.Auth.LoginScreen
 import com.pjasoft.recipeapp.ui.screens.Auth.RegisterScreen
 import com.pjasoft.recipeapp.ui.screens.MainScreen
@@ -36,7 +37,7 @@ fun App() {
         val navController = rememberNavController()
         NavHost(
             navController = navController,
-            startDestination = MainScreenGraph
+            startDestination = LoginScreenRoute
         ){
             composable<RegisterScreenRoute> {
                 RegisterScreen(
@@ -54,8 +55,15 @@ fun App() {
             navigation<MainScreenGraph>(
                 startDestination = MainScreenRoute
             ){
-               composable<MainScreenRoute> {
-                   MainScreen()
+               composable<MainScreenRoute> { backStackEntry ->
+                   val parentEntry = remember(backStackEntry) {
+                       navController.getBackStackEntry<MainScreenGraph>()
+                   }
+                   val mainScreenGraph = parentEntry.toRoute<MainScreenGraph>()
+                   MainScreen(
+                       userId = mainScreenGraph.userId,
+                       rootNavController = navController
+                   )
                }
             }
         }

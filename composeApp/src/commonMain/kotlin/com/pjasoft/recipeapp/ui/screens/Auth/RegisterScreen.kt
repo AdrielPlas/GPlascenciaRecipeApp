@@ -1,6 +1,6 @@
 package com.pjasoft.recipeapp.ui.screens.Auth
 
-import MainScreenRoute
+import MainScreenGraph
 import RecipeTheme
 import RegisterScreenRoute
 import androidx.compose.foundation.background
@@ -167,7 +167,8 @@ fun RegisterScreen(navController: NavController){
                         password = password
                     ){ result, message ->
                         if(result){
-                            navController.navigate(MainScreenRoute){
+                            val userId = viewModel.userId ?: return@register
+                            navController.navigate(MainScreenGraph(userId)){
                                 popUpTo(RegisterScreenRoute){
                                     inclusive = true
                                 }
